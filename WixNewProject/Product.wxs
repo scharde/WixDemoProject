@@ -1,30 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="WixNewProject" Language="1033" Version="1.0.0.0" Manufacturer="" UpgradeCode="a9e8bf85-4b76-4220-9d07-3f0b0808dd16">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
+  <Product Id="*" Name="WixNewProject" Language="1033" Version="1.0.0.0" Manufacturer="Sagar" UpgradeCode="a9e8bf85-4b76-4220-9d07-3f0b0808dd16">
+    <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-		<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-		<MediaTemplate />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+    <MediaTemplate EmbedCab="yes"/>
 
-		<Feature Id="ProductFeature" Title="WixNewProject" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
-		</Feature>
-	</Product>
+    <Property Id="WINCMD" Value="cmd.exe"/>
+    <PropertyRef Id="IISMAJORVERSION" />
 
-	<Fragment>
-		<Directory Id="TARGETDIR" Name="SourceDir">
-			<Directory Id="ProgramFilesFolder">
-				<Directory Id="INSTALLFOLDER" Name="WixNewProject" />
-			</Directory>
-		</Directory>
-	</Fragment>
+    <?include CustomAction.wxi?>
 
-	<Fragment>
-		<ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-			<!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-			<!-- <Component Id="ProductComponent"> -->
-				<!-- TODO: Insert files, registry keys, and other resources here. -->
-			<!-- </Component> -->
-		</ComponentGroup>
-	</Fragment>
+    <UIRef Id="WixUI_FeatureTree" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+
+
+    <Property Id="ConditionStatus" Value="true"/>
+    <Feature Id="ProductFeature" Title="WixNewProject">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+  </Product>
+
+  <Fragment>
+    <Directory Id="TARGETDIR" Name="SourceDir">
+      <Directory Id="ProgramFilesFolder">
+        <Directory Id="INSTALLFOLDER" Name="WixNewProject" />
+      </Directory>
+    </Directory>
+  </Fragment>
+
+  <Fragment>
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="ProductEXE" Guid="*">
+        <File Id="fileProduct" KeyPath="yes" Source="$(var.ProjectDir)Files\WindowsFormsApp.exe"></File>
+      </Component>
+      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
+      <!-- <Component Id="ProductComponent"> -->
+      <!-- TODO: Insert files, registry keys, and other resources here. -->
+      <!-- </Component> -->
+    </ComponentGroup>
+
+    <Condition Message="This product requires IIS7 or greater to be present before installation.">
+      <![CDATA[( "#10" >= "#7" ) OR ( "#10" = "#10" )]]>
+    </Condition>
+  </Fragment>
 </Wix>
