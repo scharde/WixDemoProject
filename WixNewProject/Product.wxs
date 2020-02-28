@@ -9,14 +9,28 @@
     <Property Id="WINCMD" Value="cmd.exe"/>
     <PropertyRef Id="IISMAJORVERSION" />
 
+    <Property Id="LAST_DIALOG" />
+    <Property Id="CURRENT_DIALOG" />
+    <Property Id="DIALOG_SEQUENCE" />
+
+    <Property Id="EMPTY_VALUE" Value="EMPTY"/>
+    <Property Id="PREVIOUS_DIALOG" />
     <?include CustomAction.wxi?>
 
     <UIRef Id="WixUI_FeatureTree" />
     <UIRef Id="WixUI_ErrorProgressText" />
-
+    <UIRef Id="ProductName.Installer.UI" />
 
     <Property Id="ConditionStatus" Value="true"/>
-    <Feature Id="ProductFeature" Title="WixNewProject">
+    <Feature Id="Feature1" Title="Feature 1" Level="10">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+
+    <Feature Id="Feature2" Title="Feature 2" Level="10">
+      <ComponentGroupRef Id="ProductComponents" />
+    </Feature>
+
+    <Feature Id="Feature3" Title="Feature 3" Level="10">
       <ComponentGroupRef Id="ProductComponents" />
     </Feature>
   </Product>
@@ -30,16 +44,6 @@
   </Fragment>
 
   <Fragment>
-    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <Component Id="ProductEXE" Guid="*">
-        <File Id="fileProduct" KeyPath="yes" Source="$(var.ProjectDir)Files\WindowsFormsApp.exe"></File>
-      </Component>
-      <!-- TODO: Remove the comments around this Component element and the ComponentRef below in order to add resources to this installer. -->
-      <!-- <Component Id="ProductComponent"> -->
-      <!-- TODO: Insert files, registry keys, and other resources here. -->
-      <!-- </Component> -->
-    </ComponentGroup>
-
     <Condition Message="This product requires IIS7 or greater to be present before installation.">
       <![CDATA[( "#10" >= "#7" ) OR ( "#10" = "#10" )]]>
     </Condition>

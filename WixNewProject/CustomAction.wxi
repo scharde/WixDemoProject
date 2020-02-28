@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Include>
+
+  <Binary Id="WixNewProjCustomAction.Binary" SourceFile="$(var.WixNewProjCustomAction.TargetDir)\WixNewProjCustomAction.CA.dll"></Binary>
+
+  <CustomAction Id="WixNewProjCustomAction.Binary.SetLastDialogName" BinaryKey="WixNewProjCustomAction.Binary" DllEntry="SetLastDialogName" Execute="immediate"/>
+  <CustomAction Id="WixNewProjCustomAction.Binary.SetPreviousDialogOnBackBtn" BinaryKey="WixNewProjCustomAction.Binary" DllEntry="SetPreviousDialogOnBackBtn" Execute="immediate"/>
+  
   <!-- TODO: Put your code here. -->
-
-
-
   <InstallExecuteSequence>
-
   </InstallExecuteSequence>
-
 </Include>

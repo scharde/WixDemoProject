@@ -19,12 +19,20 @@
     <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Components\Feature1.Components.wxs" />
     <Compile Include="Product.wxs" />
+    <Compile Include="UserInterface\Feature3UI.wxs" />
+    <Compile Include="UserInterface\Feature2UI.wxs" />
+    <Compile Include="UserInterface\Feature1UI.wxs" />
+    <Compile Include="UserInterface\UI.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CodeSignCert\" />
     <Folder Include="Files\" />
     <Folder Include="ManagerWorkflow\" />
+    <Folder Include="Components" />
+    <Folder Include="UserInterface\" />
+    <Folder Include="UserInterface\Graphics\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="CodeSignCert\AmcomSoftwareCodeSign.pfx" />
@@ -32,6 +40,13 @@
     <Content Include="Files\WindowsFormsApp.exe" />
     <Content Include="Files\WindowsFormsApp.exe.config" />
     <Content Include="ManagerWorkflow\PostBuildWorkflow.xml" />
+    <Content Include="UserInterface\Graphics.wxi" />
+    <Content Include="UserInterface\Graphics\Console.Shortcut.ico" />
+    <Content Include="UserInterface\Graphics\installer.banner.bmp" />
+    <Content Include="UserInterface\Graphics\installer.leftPanel.bmp" />
+    <Content Include="UserInterface\Graphics\installer.logo.ico" />
+    <Content Include="UserInterface\Graphics\installer.splash.png" />
+    <Content Include="UserInterface\Graphics\internet.explorer.ico" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUIExtension">
@@ -50,6 +65,16 @@
       <HintPath>$(WixExtDir)\WixIIsExtension.dll</HintPath>
       <Name>WixIIsExtension</Name>
     </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WixNewProjCustomAction\WixNewProjCustomAction.csproj">
+      <Name>WixNewProjCustomAction</Name>
+      <Project>{0c2b5832-063f-4e53-9d31-226f45fbe72f}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />

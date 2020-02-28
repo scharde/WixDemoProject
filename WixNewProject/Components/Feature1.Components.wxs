@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+	<Fragment>
+		<!-- TODO: Put your code here. -->
+    <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
+      <Component Id="ProductEXE" Guid="*">
+        <File Id="fileProduct" KeyPath="yes" Source="$(var.ProjectDir)Files\WindowsFormsApp.exe"></File>
+      </Component>
+    </ComponentGroup>
+	</Fragment>
+</Wix>
