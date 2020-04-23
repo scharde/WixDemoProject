@@ -8,8 +8,8 @@
 		User Interface Section
 		************************************
 		-->
-    <UIRef Id="Feature1UI"/>
-    <UIRef Id="Feature2UI"/>
+    <UIRef Id="AllUIReferences"/>
+
 
     <UIRef Id="UI_TextStyles"/>
     <UI Id="Feature3UI">
@@ -38,14 +38,6 @@
           <Publish Event="SpawnDialog" Value="BrowseDlg" Order="2">1</Publish>
         </Control>
 
-        <Control Id="setPropertyButton" Type="PushButton" Text="SetProperty" Height="17" Width="56" X="100" Y="243">
-          <Publish Property="FEEATURE3_PREV_DIALOG" Value="[PREVIOUS_DIALOG]" Order="1">
-            <![CDATA[NOT(PREVIOUS_DIALOG="")]]>
-          </Publish>
-          <Publish Property="PREVIOUS_DIALOG" Order="2">
-            1
-          </Publish>
-        </Control>
 
         <Control Id="backButton" Type="PushButton" Text="Back" Height="17" Width="56" X="175" Y="243">
           <Publish Property="FEEATURE3_PREV_DIALOG" Value="[PREVIOUS_DIALOG]" Order="1">
@@ -56,20 +48,19 @@
           </Publish>
 
           <Publish Event="NewDialog" Value="[FEEATURE3_PREV_DIALOG]" Order="3">
-            <![CDATA[NOT(FEEATURE3_PREV_DIALOG="")]]>
+            <![CDATA[NOT(FEEATURE3_PREV_DIALOG="") AND NOT(FEEATURE3_PREV_DIALOG="Feature3UI")]]>
           </Publish>
-          <Publish Event ="NewDialog" Value="CustomizeDlg"><![CDATA[(FEEATURE3_PREV_DIALOG="")]]></Publish>
+          <Publish Event ="NewDialog" Value="CustomizeDlg_Custom">
+            <![CDATA[(FEEATURE3_PREV_DIALOG="")]]>
+          </Publish>
         </Control>
         
         <Control Id="OkButton" Type="PushButton" Text="Next" Height="17" Width="56" X="237" Y="243">
-          <Publish Property="FEEATURE3_PREV_DIALOG" Value="[PREVIOUS_DIALOG]" Order="1">
+          <Publish Property="FEEATURE3_PREV_DIALOG" Value="[PREVIOUS_DIALOG]">
             <![CDATA[NOT(PREVIOUS_DIALOG="")]]>
           </Publish>
-
-          <!--<Publish Property="CURRENT_DIALOG" Value="Feature3UI" Order="1">1</Publish>
-          <Publish Event="DoAction" Value="WixNewProjCustomAction.Binary.SetLastDialogName" Order="2">1</Publish>-->
-
-          <Publish Event="NewDialog" Value="VerifyReadyDlg" Order="11">1</Publish >
+          <Publish Property="PREVIOUS_DIALOG" Value="Feature3UI">1</Publish>
+          <Publish Event="NewDialog" Value="VerifyReadyDlg" Order="1">1</Publish >
         </Control>
 
         <Control Id="cancelButton" Type="PushButton" Text="Cancel" Height="17" Width="56" X="300" Y="243" Cancel="yes">

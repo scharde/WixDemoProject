@@ -12,8 +12,8 @@
 	*****************************************************************
 	-->
 
-	<WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)UserInterface\Graphics\installer.banner.bmp" />
+	<!--<WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)UserInterface\Graphics\installer.banner.bmp" />
 	<WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)UserInterface\Graphics\installer.leftPanel.bmp" />
-	<Icon Id="Logo" SourceFile="$(var.ProjectDir)UserInterface\Graphics\installer.logo.ico"/>
+	<Icon Id="Logo" SourceFile="$(var.ProjectDir)UserInterface\Graphics\installer.logo.ico"/>-->
 	<Property Id="ARPPRODUCTICON" Value="Logo" />
 </Include>

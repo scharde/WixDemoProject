@@ -8,15 +8,14 @@
 		User Interface Section
 		************************************
 		-->
-    <UIRef Id="Feature2UI"/>
-    <UIRef Id="Feature3UI"/>
 
+    <UIRef Id="AllUIReferences"/>
     
     <UIRef Id="UI_TextStyles"/>
     <UI Id="Feature1UI">
       <Dialog Id="Feature1UI" Width="370" Height="270" NoMinimize ="yes" Title="Dialog :- Feature 1">
-      
-        <Control Id="spokPic0" Type="Bitmap" Text="spokPic" Height="50" Width="370" X="0" Y="0" TabSkip="no" />
+
+        <!--<Control Id="spokPic0" Type="Bitmap" Text="spokPic" Height="50" Width="370" X="0" Y="0" TabSkip="no" />-->
         <Control Id="BannerBig0" Type="Text" Height ="17" Width="250" X="10" Y="10" Text="{\WixUI_Font_Title}Shared Directory Location" Transparent="yes"/>
 
         <Control Id="sampleLineTop0" Type="Line" Height="0" Width="370" X="0" Y="50"/>
@@ -32,24 +31,43 @@
         
         
         <Control Id="backButton" Type="PushButton" Text="Back" Height="17" Width="56" X="175" Y="243">
-          <Publish Property="PREVIOUS_DIALOG" Order="1"> 
+
+          <Publish Property="FEEATURE1_PREV_DIALOG" Value="[PREVIOUS_DIALOG]">
             <![CDATA[NOT(PREVIOUS_DIALOG="")]]>
           </Publish>
-          <Publish Event ="NewDialog" Value="CustomizeDlg" Order="2">
-            1
+          <Publish Property="PREVIOUS_DIALOG">
+            <![CDATA[NOT(PREVIOUS_DIALOG="")]]>
           </Publish>
+
+          <Publish Event="NewDialog" Value="[FEEATURE1_PREV_DIALOG]" Order="2">
+            <![CDATA[NOT(FEEATURE1_PREV_DIALOG="")]]>
+          </Publish>
+          <Publish Event ="NewDialog" Value="CustomizeDlg_Custom" Order="1">
+            <![CDATA[(FEEATURE1_PREV_DIALOG="")]]>
+          </Publish>
+          
+          
+          <!--<Publish Property="PREVIOUS_DIALOG" Order="1"> 
+            <![CDATA[NOT(PREVIOUS_DIALOG="")]]>
+          </Publish>
+          <Publish Event ="NewDialog" Value="CustomizeDlg_Custom" Order="2">
+            1
+          </Publish>-->
         </Control>
         
         
         <Control Id="OkButton" Type="PushButton" Text="Next" Height="17" Width="56" X="237" Y="243">
-          <Publish Property="PREVIOUS_DIALOG" Value="Feature1UI" Order="1">1</Publish>
-          <!--<Publish Property="CURRENT_DIALOG" Value="Feature1UI" Order="1">1</Publish>
-          <Publish Event="DoAction" Value="WixNewProjCustomAction.Binary.SetLastDialogName" Order="2">1</Publish>-->
+
+          <Publish Property="FEEATURE1_PREV_DIALOG" Value="[PREVIOUS_DIALOG]" Order="1">
+            <![CDATA[NOT(PREVIOUS_DIALOG="")]]>
+          </Publish>
+          <Publish Property="PREVIOUS_DIALOG" Value="Feature1UI" Order="2">1</Publish>
+       
           <Publish Event="NewDialog" Value="Feature2UI" Order="12">
-            <![CDATA[(&Feature2=3)]]>
+            <![CDATA[(&Feature2=3) AND (FEATURE2_LOCAL="")]]>
           </Publish>
           <Publish Event="NewDialog" Value="Feature3UI" Order="11">
-            <![CDATA[(&Feature3=3)]]>
+            <![CDATA[(&Feature3=3) AND (FEATURE3_LOCAL="")]]>
           </Publish>
           <Publish Event="NewDialog" Value="VerifyReadyDlg" Order="2">1</Publish >
         </Control>

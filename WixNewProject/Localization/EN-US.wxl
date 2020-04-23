@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="VerifyReady.Description">Click Install to begin the installation. Click Back to review or change any of your installation ettings. Click Cancel to exit the wizard.</String>
+ 
+   
+</WixLocalization>

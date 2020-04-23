@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Include>
+  <CustomAction Id="ResetSpokWebProp" Property="SPOKWEBUPGRADEABLE" Value=""/>
+  <Property Id="UninstallSpokWebWixBundle" Hidden="no"/>
+  <CustomAction Id="UninstallSpokWebWixBundle" BinaryKey="WixCA" DllEntry="WixSilentExec" Execute="deferred" Return="ignore"/>
+
+  <InstallExecuteSequence>
+    <FindRelatedProducts After="AppSearch"></FindRelatedProducts>
+    <RemoveExistingProducts After="InstallInitialize">
+      1
+    </RemoveExistingProducts>
+  
+  </InstallExecuteSequence>
+</Include>

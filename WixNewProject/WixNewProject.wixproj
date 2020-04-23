@@ -21,32 +21,38 @@
   <ItemGroup>
     <Compile Include="Components\Feature1.Components.wxs" />
     <Compile Include="Product.wxs" />
+    <Compile Include="UserInterface\CustomizeDlg.wxs" />
     <Compile Include="UserInterface\Feature3UI.wxs" />
     <Compile Include="UserInterface\Feature2UI.wxs" />
     <Compile Include="UserInterface\Feature1UI.wxs" />
     <Compile Include="UserInterface\UI.wxs" />
+    <Compile Include="UserInterface\UIReferences.wxs" />
+    <Compile Include="UserInterface\VerifyReadyDlg_Custom.wxs" />
+    <Compile Include="UserInterface\WixFeatureTree_Custom.wxs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CodeSignCert\" />
     <Folder Include="Files\" />
+    <Folder Include="Localization\" />
     <Folder Include="ManagerWorkflow\" />
     <Folder Include="Components" />
+    <Folder Include="CustomAction" />
     <Folder Include="UserInterface\" />
     <Folder Include="UserInterface\Graphics\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="CodeSignCert\AmcomSoftwareCodeSign.pfx" />
     <Content Include="CustomAction.wxi" />
-    <Content Include="Files\WindowsFormsApp.exe" />
+    <Content Include="CustomAction\CustomActions.wxi" />
+    <Content Include="Files\Text4.txt" />
+    <Content Include="Files\TextFile3.txt" />
+    <Content Include="Files\WindowsFormsApp2.exe" />
+    <Content Include="Files\WindowsFormsApp3.exe" />
+    <Content Include="Files\WindowsFormsApp1.exe" />
     <Content Include="Files\WindowsFormsApp.exe.config" />
     <Content Include="ManagerWorkflow\PostBuildWorkflow.xml" />
     <Content Include="UserInterface\Graphics.wxi" />
-    <Content Include="UserInterface\Graphics\Console.Shortcut.ico" />
-    <Content Include="UserInterface\Graphics\installer.banner.bmp" />
-    <Content Include="UserInterface\Graphics\installer.leftPanel.bmp" />
-    <Content Include="UserInterface\Graphics\installer.logo.ico" />
-    <Content Include="UserInterface\Graphics\installer.splash.png" />
     <Content Include="UserInterface\Graphics\internet.explorer.ico" />
+    <Content Include="WixNewProject.wax" />
   </ItemGroup>
   <ItemGroup>
     <WixExtension Include="WixUIExtension">
@@ -65,6 +71,9 @@
       <HintPath>$(WixExtDir)\WixIIsExtension.dll</HintPath>
       <Name>WixIIsExtension</Name>
     </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Localization\EN-US.wxl" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WixNewProjCustomAction\WixNewProjCustomAction.csproj">

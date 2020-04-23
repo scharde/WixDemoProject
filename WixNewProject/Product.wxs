@@ -1,51 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi" xmlns:iis="http://schemas.microsoft.com/wix/IIsExtension">
-  <Product Id="*" Name="WixNewProject" Language="1033" Version="1.0.0.0" Manufacturer="Sagar" UpgradeCode="a9e8bf85-4b76-4220-9d07-3f0b0808dd16">
+  <Product Id="*" Name="WixNewProject" Language="1033" Version="1.0.0.6" Manufacturer="Sagar" UpgradeCode="a9e8bf85-4b76-4220-9d07-3f0b0808dd16">
     <Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
 
-    <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
-    <MediaTemplate EmbedCab="yes"/>
+    <!--<MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />-->
+    <Media Id="1" Cabinet="WixNewProject.cab" EmbedCab="yes" />
 
+    <?include .\CustomAction\CustomActions.wxi?>
+
+    <Property Id="INSTALLEDFEATURES">
+      <RegistrySearch Id="INSTALLEDFEATURES"
+                      Root="HKLM"
+                      Key="SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\[ProductCode]"
+                      Name="ADDLOCAL"
+                      Type="raw"/>
+    </Property>
+    
     <Property Id="WINCMD" Value="cmd.exe"/>
     <PropertyRef Id="IISMAJORVERSION" />
 
     <Property Id="LAST_DIALOG" />
     <Property Id="CURRENT_DIALOG" />
-    <Property Id="DIALOG_SEQUENCE" />
 
-    <Property Id="EMPTY_VALUE" Value="EMPTY"/>
     <Property Id="PREVIOUS_DIALOG" />
     <?include CustomAction.wxi?>
 
-    <UIRef Id="WixUI_FeatureTree" />
+    <UIRef Id="WixUI_FeatureTree_Custom" />
     <UIRef Id="WixUI_ErrorProgressText" />
     <UIRef Id="ProductName.Installer.UI" />
 
+
+    <Upgrade Id="{E85771F1-A477-48CB-B589-F7A56336ACFF}">
+      <UpgradeVersion OnlyDetect="no" Property="SPOKWEBUPGRADEABLE"
+        Minimum="1.0.0.0" IncludeMinimum="yes"
+        Maximum="7.12.20.20" IncludeMaximum="yes"/>
+    </Upgrade>
+    
+    
     <Property Id="ConditionStatus" Value="true"/>
-    <Feature Id="Feature1" Title="Feature 1" Level="10">
-      <ComponentGroupRef Id="ProductComponents" />
+    <Feature Id="Feature1" Title="Feature 1" Level="10" ConfigurableDirectory="FEATURE1DIR">
+      <ComponentRef Id="ProductEXE1" />
+      <ComponentRef Id="ProductEXE1_2" />
+      <ComponentRef Id="ProductEXE1_3"/>
     </Feature>
 
-    <Feature Id="Feature2" Title="Feature 2" Level="10">
-      <ComponentGroupRef Id="ProductComponents" />
+    <Feature Id="Feature2" Title="Feature 2" Level="10" ConfigurableDirectory="FEATURE2DIR">
+      <ComponentRef Id="ProductEXE2" />
+      <ComponentRef Id="ProductEXE2_2"/>
+      <ComponentRef Id="ProductEXE2_3"/>
     </Feature>
 
-    <Feature Id="Feature3" Title="Feature 3" Level="10">
-      <ComponentGroupRef Id="ProductComponents" />
+    <Feature Id="Feature3" Title="Feature 3" Level="10" ConfigurableDirectory="FEATURE3DIR">
+      <ComponentRef Id="ProductEXE3" />
     </Feature>
   </Product>
 
   <Fragment>
     <Directory Id="TARGETDIR" Name="SourceDir">
       <Directory Id="ProgramFilesFolder">
-        <Directory Id="INSTALLFOLDER" Name="WixNewProject" />
+        <Directory Id="INSTALLFOLDER" Name="WixNewProject" >
+          <Directory Id="FEATURE1DIR"/>
+          <Directory Id="FEATURE2DIR"/>
+          <Directory Id="FEATURE3DIR"/>
+        </Directory>
       </Directory>
     </Directory>
   </Fragment>
 
   <Fragment>
-    <Condition Message="This product requires IIS7 or greater to be present before installation.">
+    <!--<Condition Message="This product requires IIS7 or greater to be present before installation.">
       <![CDATA[( "#10" >= "#7" ) OR ( "#10" = "#10" )]]>
-    </Condition>
+    </Condition>-->
   </Fragment>
 </Wix>

@@ -8,8 +8,8 @@
 		User Interface Section
 		************************************
 		-->
-    <UIRef Id="Feature3UI"/>
-    <UIRef Id="Feature1UI"/>
+    <UIRef Id="AllUIReferences"/>
+
 
     <UIRef Id="UI_TextStyles"/>
     <UI Id="Feature2UI">
@@ -25,14 +25,14 @@
           </Publish>
         </Control>-->
 
-        <Control Id="spokPic0" Type="Bitmap" Text="spokPic" Height="50" Width="370" X="0" Y="0" TabSkip="no" >
-          <!--<Publish Property="FEEATURE2_PREV_DIALOG" Value="[PREVIOUS_DIALOG]" Order="1">
+        <!--<Control Id="spokPic0" Type="Bitmap" Text="spokPic" Height="50" Width="370" X="0" Y="0" TabSkip="no" >
+          --><!--<Publish Property="FEEATURE2_PREV_DIALOG" Value="[PREVIOUS_DIALOG]" Order="1">
             <![CDATA[NOT(PREVIOUS_DIALOG="")]]>
           </Publish>
           <Publish Property="PREVIOUS_DIALOG" Order="2">
             1
-          </Publish>-->
-        </Control>
+          </Publish>--><!--
+        </Control>-->
         <Control Id="BannerBig0" Type="Text" Height ="17" Width="250" X="10" Y="10" Text="{\WixUI_Font_Title}Shared Directory Location" Transparent="yes"/>
 
         <Control Id="sampleLineTop0" Type="Line" Height="0" Width="370" X="0" Y="50"/>
@@ -67,27 +67,26 @@
           <Publish Event="NewDialog" Value="[FEEATURE2_PREV_DIALOG]" Order="3">
             <![CDATA[NOT(FEEATURE2_PREV_DIALOG="")]]>
           </Publish>
-          <Publish Event ="NewDialog" Value="CustomizeDlg" Order="4">
+          <Publish Event ="NewDialog" Value="CustomizeDlg_Custom" Order="4">
             <![CDATA[(FEEATURE2_PREV_DIALOG="")]]>
           </Publish>
         </Control>
         
         <Control Id="OkButton" Type="PushButton" Text="Next" Height="17" Width="56" X="237" Y="243">
-
-          <Publish Property="FEEATURE2_PREV_DIALOG" Value="[PREVIOUS_DIALOG]" Order="1">
-            <![CDATA[NOT(PREVIOUS_DIALOG="")]]>
+          <Publish Property="FEEATURE2_PREV_DIALOG" Value="[PREVIOUS_DIALOG]">
+            <![CDATA[NOT(SHAREPATH="") AND NOT(PREVIOUS_DIALOG="")]]>
           </Publish>
-        
-          <Publish Property="PREVIOUS_DIALOG" Value="Feature2UI" Order="2">1</Publish>
+          <Publish Property="PREVIOUS_DIALOG" Value="Feature2UI">  <![CDATA[NOT(SHAREPATH="")]]></Publish>
 
-          <!--<Publish Property="CURRENT_DIALOG" Value="Feature2UI" Order="1">1</Publish>
-          <Publish Event="DoAction" Value="WixNewProjCustomAction.Binary.SetLastDialogName" Order="2">1</Publish>-->
-
-          <Publish Event="NewDialog" Value="Feature3UI" Order="10">
-            <![CDATA[(&Feature3=3)]]>
+          <Publish Event="SpawnDialog" Value="DatabaseWarningDialog" Order="3">
+            <![CDATA[(SHAREPATH="")]]>
           </Publish>
 
-          <Publish Event="NewDialog" Value="VerifyReadyDlg" Order="4">1</Publish >
+          <Publish Event="NewDialog" Value="Feature3UI" Order="2">
+            <![CDATA[(&Feature3=3)  AND (FEATURE3_LOCAL="")]]>
+          </Publish>
+
+          <Publish Event="NewDialog" Value="VerifyReadyDlg" Order="1">1</Publish >
         </Control>
 
         <Control Id="cancelButton" Type="PushButton" Text="Cancel" Height="17" Width="56" X="300" Y="243" Cancel="yes">
@@ -95,6 +94,16 @@
         </Control>
 
       </Dialog>
+
+      <Dialog Id="DatabaseWarningDialog" Width="284" Height="73" Title="ERROR" NoMinimize="yes">
+        <Control Id="Text" Type="Text" X="50" Y="20" Width="240" Height="27" TabSkip="no">
+          <Text>DATABASE Required</Text>
+        </Control>
+        <Control Id="OK" Type="PushButton" X="114" Y="52" Width="56" Height="17" Default="yes" Cancel="yes" Text="OK">
+          <Publish Event="EndDialog" Value="Return">1</Publish>
+        </Control>
+      </Dialog>
+      
     </UI>
 
   </Fragment>
